@@ -39,8 +39,10 @@ cloudinary.config({
         var fontcolor = 'red'
         var x = 0
         var y = 0
-        var bordersize = 0
-        var borderColor = "black"
+        var border_size = 0
+        var border_color = "white"
+        var border_style = 'solid'
+        var background = 'transparent'
         var gravity = undefined// north_east, north, north_west, west, south_west, south, south_east, east, or center
 
         if(typeof req.body.fontsize !== 'undefined') {
@@ -55,8 +57,24 @@ cloudinary.config({
             y = req.body.y
         }
 
+        if(typeof req.body.font_size !== 'undefined') {
+            font_size = req.body.font_size
+        }
+
+        if(typeof req.body.border_size !== 'undefined') {
+            border_size = req.body.border_size
+        }
+
         if(typeof req.body.gravity !== 'undefined') {
             gravity = req.body.gravity
+        }
+
+        if(typeof req.body.fontcolor !== 'undefined') {
+            fontcolor = req.body.fontcolor
+        }
+
+        if(typeof req.body.background !== 'undefined') {
+            background = req.body.background
         }
 
         if(typeof req.body.font_name !== 'undefined') {
@@ -70,6 +88,8 @@ cloudinary.config({
             x: x,
             y: y,
             color: fontcolor,
+            border: border_size + 'px_' + border_style + '_' + border_color, // width_style_color 3px_solid_black
+            background: background 
         })
         console.log(html)
         var image_url = html.substring(10, html.length - 4) + '.jpg'
@@ -91,5 +111,54 @@ cloudinary.config({
     }
   })
 
-  module.exports = router
+
+  // API xu ly text-cutter
+  router.post('/text-cutter', function(req, res) {
+    console.log(req.body)
+  if(typeof req.body !== 'undefined' 
+  && typeof req.body.text !== 'undefined'
+  && typeof req.body.image_name !== 'undefined'
+  ){
+      var fontsize = 30
+      var fontName = "Arial"
+      var fontcolor = 'red'
+
+      if(typeof req.body.fontsize !== 'undefined') {
+          fontsize = req.body.fontsize
+      }
+
+      if(typeof req.body.font_size !== 'undefined') {
+          font_size = req.body.font_size
+      }
+
+      if(typeof req.body.font_name !== 'undefined') {
+          fontName = req.body.font_name
+          fontName = encodeURI(fontName)
+      }
+      
+      var html = cloudinary.image(req.body.image_name, {
+          overlay: 'text:'+fontName+'_'+ fontsize +':' + encodeURI(req.body.text),
+          flags: 'cutter'
+      })
+      console.log(html)
+      var image_url = html.substring(10, html.length - 4) + '.jpg'
+      image_url = encodeURI(image_url)
+      res.send({
+          messages: [
+              {
+                  attachment: {
+                      type: 'image',
+                      payload: {
+                          url: image_url
+                      }
+                  }
+              }
+          ]
+      })
+  } else {
+      res.send({messages:[{text: 'You are missing parameter!'}]})
+  }
+})
+
+module.exports = router
   
