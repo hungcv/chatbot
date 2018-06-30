@@ -15,5 +15,8 @@
     "mongoose": "^5.1.7",
     "random-int": "^1.0.0",
     "random-number": "0.0.9"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.5"
   }
 }

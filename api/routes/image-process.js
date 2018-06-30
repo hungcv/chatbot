@@ -29,6 +29,7 @@ cloudinary.config({
 
   // API xu ly text-overlay
   router.post('/text-overlay', function(req, res) {
+      console.log(req.body)
     if(typeof req.body !== 'undefined' 
     && typeof req.body.text !== 'undefined'
     && typeof req.body.image_name !== 'undefined'

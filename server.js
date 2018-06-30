@@ -16,6 +16,7 @@ db.once('open', function() {
 
 // body parser 
 app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json({type: 'application/json'}))
 
 app.use('/api', require('./api/main.js'))
 
