@@ -137,10 +137,12 @@ cloudinary.config({
       }
       
       var html = cloudinary.image(req.body.image_name, {
-          w: 500,
           overlay: 'text:'+fontName+'_'+ fontsize +':' + encodeURI(req.body.text),
-          flags: 'cutter'
+          flags: 'cutter',
+          width: 400,
+          crop: 'fill'
       })
+
       console.log(html)
       var image_url = html.substring(10, html.length - 4) + '.jpg'
       image_url = encodeURI(image_url)
