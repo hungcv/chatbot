@@ -6,13 +6,13 @@ var randomInt = require('random-int')
 router.get('/', function(req, res) {
     var from = 0
     var to = 100
-    if (req.query !== 'undefined') {
+    if (typeof req.query !== 'undefined') {
         console.log(req.query)
-        if (req.query.from !== 'undefined') {
+        if (typeof req.query.from !== 'undefined') {
             from = parseInt(req.query.from)
         }
 
-        if (req.query.to !== 'undefined') {
+        if (typeof req.query.to !== 'undefined') {
             to = parseInt(req.query.to)
         }
     } 
