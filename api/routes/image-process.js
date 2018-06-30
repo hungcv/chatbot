@@ -119,7 +119,7 @@ cloudinary.config({
   && typeof req.body.text !== 'undefined'
   && typeof req.body.image_name !== 'undefined'
   ){
-      var fontsize = 30
+      var fontsize = 48
       var fontName = "Arial"
       var fontcolor = 'red'
 
