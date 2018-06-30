@@ -137,6 +137,7 @@ cloudinary.config({
       }
       
       var html = cloudinary.image(req.body.image_name, {
+          w: 500,
           overlay: 'text:'+fontName+'_'+ fontsize +':' + encodeURI(req.body.text),
           flags: 'cutter'
       })
