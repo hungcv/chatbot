@@ -82,7 +82,9 @@ cloudinary.config({
             fontName = encodeURI(fontName)
         }
         var t = encodeURI(req.body.text)
-        t = t.replace('%5Cr','%0A')
+        console.log('text before: '+t)
+        t = t.replace('%5Cr%5Cn','%0A')
+        console.log('text: '+t)
         var html = cloudinary.image(req.body.image_name, {
             overlay: 'text:'+fontName+'_'+ fontsize +':' + t,
             gravity: gravity,
