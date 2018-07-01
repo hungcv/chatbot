@@ -81,9 +81,10 @@ cloudinary.config({
             fontName = req.body.font_name
             fontName = encodeURI(fontName)
         }
-        
+        var t = encodeURI(req.body.text)
+        t = t.replace('%5Cr','%0A')
         var html = cloudinary.image(req.body.image_name, {
-            overlay: 'text:'+fontName+'_'+ fontsize +':' + encodeURI(req.body.text),
+            overlay: 'text:'+fontName+'_'+ fontsize +':' + t,
             gravity: gravity,
             x: x,
             y: y,
