@@ -28,6 +28,9 @@ cloudinary.config({
 //   })
 
   // API xu ly text-overlay
+  /**
+   * text: xuống dòng: thêm \r\n
+   */
   router.post('/text-overlay', function(req, res) {
       console.log(req.body)
     if(typeof req.body !== 'undefined' 
@@ -91,7 +94,7 @@ cloudinary.config({
             x: x,
             y: y,
             color: fontcolor,
-            border: border_size + 'px_' + border_style + '_' + border_color, // width_style_color 3px_solid_black
+            // border: border_size + 'px_' + border_style + '_' + border_color, // width_style_color 3px_solid_black
             background: background 
         })
         console.log(html)
