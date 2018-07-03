@@ -186,12 +186,15 @@ cloudinary.config({
       if(typeof req.body.fontstyle !== 'undefined') {
         fontstyle = req.body.fontstyle
       }
-      
+
       var t = encodeURI(req.body.text)
       var t2 = encodeURI(req.body.text2)
 
       t = t.replace('%5Cr%5Cn','%0A')
       t2 = t2.replace('%5Cr%5Cn','%0A')
+
+      t = t.replace('+84', '0')
+      t2 = t2.replace('+84', '0')
 
       var html = cloudinary.image(req.body.image_name,{
         transformation: [
