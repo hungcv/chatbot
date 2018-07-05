@@ -115,13 +115,77 @@ cloudinary.config({
     }
   })
 
+  router.post('/avatar', function(req, res) {
+    if (typeof req.body.uuid !== 'undefined' && typeof req.body.image_name !== 'undefined') {
+        var x = 0 
+        var y = 0 
+        var size = 200
+        var gravity = 'center'
+
+        if(typeof req.body.gravity !== 'undefined') {
+            gravity = req.body.gravity
+        }
+
+        if(typeof req.body.size !== 'undefined') {
+            size = req.body.size
+        }
+
+        if(typeof req.body.x !== 'undefined') {
+            x = req.body.x
+        }
+
+        if(typeof req.body.y !== 'undefined') {
+            y = req.body.y
+        }
+
+        var avatar_url = 'https://graph.facebook.com/v3.0/' + req.body.uuid + '/picture?type=large'
+        let publicId = "avatar" + req.body.uuid
+        cloudinary.v2.uploader.upload(avatar_url, 
+        { public_id: publicId }, 
+    
+        function(error, result) {
+        if (error) {
+            console.log(error)
+            res.send({messages:[{text: 'Upload your avatar error!'}]})
+        } else {
+            let html = cloudinary.image(
+            req.body.image_name, 
+            {transformation: [
+            {overlay: publicId, radius: "max", width: size, height: size, x: x, y: y, gravity: gravity}
+            ]})
+            
+            console.log(res)
+            
+            var image_url = html.substring(10, html.length - 4) + '.jpg'
+
+            image_url = encodeURI(image_url)
+            res.send({
+                messages: [
+                    {
+                        attachment: {
+                            type: 'image',
+                            payload: {
+                                url: image_url
+                            }
+                        }
+                    }
+                ]
+            })
+        }
+    })
+    }
+    else {
+        res.send({messages:[{text: 'You are missing parameter!'}]})
+    }
+  })
+
   // API xu ly text-overlay
   /**
    * text: xuống dòng: thêm \r\n
    */
   router.post('/2text-overlay', function(req, res) {
     console.log(req.body)
-  if(typeof req.body !== 'undefined' 
+  if(typeof req.body !== 'undefined'
   && typeof req.body.text !== 'undefined'
   && typeof req.body.image_name !== 'undefined'
   ){
