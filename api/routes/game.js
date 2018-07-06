@@ -116,20 +116,22 @@ router.post('/create', function(req, res) {
 })
 
 router.post('/user', function(req, res) {
+    var query
     if (typeof req.body !== 'undefined' && 
     typeof req.body.game_id !== 'undefined') {
-        GameUser.find({game_id: req.body.game_id}, function(err, users) {
-            if (err) {
-                res.status(400)
-                res.send('error '+ err)
-            } else {
-                res.send(users)
-            }
-        })
+       query = {game_id: req.body.game_id}
     } else {
-        res.status(400)
-        res.send('Missing game_id!')
+        query = {}
     }
+
+    GameUser.find(query, function(err, users) {
+        if (err) {
+            res.status(400)
+            res.send('error '+ err)
+        } else {
+            res.send(users)
+        }
+    })
 })
 
 router.get('/campain', function(req, res) {
