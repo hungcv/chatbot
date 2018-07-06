@@ -115,9 +115,9 @@ router.post('/create', function(req, res) {
     }
 })
 
-router.get('/user', function(req, res) {
+router.post('/user', function(req, res) {
     if (typeof req.body !== 'undefined' && 
-    typeof req.body.name !== 'undefined') {
+    typeof req.body.game_id !== 'undefined') {
         GameUser.find({game_id: req.body.game_id}, function(err, users) {
             if (err) {
                 res.status(400)
