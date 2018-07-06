@@ -139,7 +139,7 @@ cloudinary.config({
         }
 
         var avatar_url = 'https://graph.facebook.com/v3.0/' + req.body.uuid + '/picture?type=large'
-        let publicId = "avatar" + req.body.uuid
+        var publicId = "avatar" + req.body.uuid
         cloudinary.v2.uploader.upload(avatar_url, 
         { public_id: publicId }, 
     
