@@ -148,7 +148,7 @@ cloudinary.config({
             console.log(error)
             res.send({messages:[{text: 'Upload your avatar error!'}]})
         } else {
-            let html = cloudinary.image(
+            var html = cloudinary.image(
             req.body.image_name, 
             {transformation: [
             {overlay: publicId, radius: "max", width: size, height: size, x: x, y: y, gravity: gravity}
