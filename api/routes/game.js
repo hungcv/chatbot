@@ -132,4 +132,15 @@ router.post('/user', function(req, res) {
     }
 })
 
+router.get('/campain', function(req, res) {
+    GameCampain.find(function(err, games) {
+        if (err) {
+            res.status(400)
+            res.send('error '+ err)
+        } else {
+            res.send(games)
+        }
+    })
+})
+
 module.exports = router
