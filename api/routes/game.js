@@ -39,7 +39,9 @@ router.post('/random-number', function(req, res) {
             user.messenger_user_id = req.body.messenger_user_id
         }
 
-        user.game_id = '5b3e9ae3bbf52d031ae49058'
+        if (typeof req.body.game_id !== 'undefined') {
+            user.game_id = req.body.game_id
+        }
         
         GameUser.find({
             game_id: user.game_id
@@ -110,6 +112,23 @@ router.post('/create', function(req, res) {
           });
     } else {
         res.send('Missing game name!')
+    }
+})
+
+router.get('/user', function(req, res) {
+    if (typeof req.body !== 'undefined' && 
+    typeof req.body.name !== 'undefined') {
+        GameUser.find({game_id: req.body.game_id}, function(err, users) {
+            if (err) {
+                res.status(400)
+                res.send('error '+ err)
+            } else {
+                res.send(users)
+            }
+        })
+    } else {
+        res.status(400)
+        res.send('Missing game_id!')
     }
 })
 
