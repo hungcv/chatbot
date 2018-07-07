@@ -14,14 +14,19 @@ db.once('open', function() {
   console.log('Database connected!')
 })
 
+// app.get('*', (req, res) => {
+//   res.sendFile('./public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
+// });
+
 // body parser 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json({type: 'application/json'}))
+console.log("__dirname: "+ __dirname);
 
 app.use('/api', require('./api/main.js'))
 
-app.get('/', function(req, res){
-  res.send("Hello World! Server working");
-});
+// app.get('/', function(req, res){
+//   res.send("Hello World! Server working");
+// });
 
 app.listen(8080, () => console.log('Example app listening on port 8080!'))

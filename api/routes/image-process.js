@@ -257,7 +257,6 @@ cloudinary.config({
 
       var html = cloudinary.image(req.body.image_name,{
         transformation: [
-            {width: 900, height: 450},
             {
                 overlay: 'text:'+fontName+'_'+ fontsize +'_'+fontstyle+':' + t,
                 gravity: gravity,

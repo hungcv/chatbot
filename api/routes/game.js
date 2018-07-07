@@ -68,7 +68,7 @@ router.post('/random-number', function(req, res) {
                     if (err) {
                         res.send('Error occur, please try again\n'+ err)
                     } else {
-                        res.send({messages:[{text: 'Con số may măn của bạn : ' + user.number}]})
+                        res.send({messages:[{text: 'Con số may mắn của bạn : ' + user.number}]})
                     }
                   });
             }
@@ -88,7 +88,7 @@ router.post('/choose1', function(req, res) {
                 res.status(300)
                 res.send('Error:'+ err)
             } else if(users.length == 0) {
-                res.send(' Chưa có ai chơi cả! @@')
+                res.send('Chưa có ai chơi cả! @@')
             } else {
                 var index = randomInt(0,users.length-1);
                 res.send(users[index])
